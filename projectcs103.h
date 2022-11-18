@@ -54,7 +54,7 @@ bool checkLuhn(const string& cardNo);
 
 void invalidnumber();
 
-void PrintInvoiceTitle(string& userId, string& userName);
+void PrintInvoiceTitle(string& userId, string &userName);
 
 void PrintOrderTitle();
 

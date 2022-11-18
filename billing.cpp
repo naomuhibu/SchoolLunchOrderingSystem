@@ -8,19 +8,18 @@
 
 using namespace std;
 
-void PrintInvoiceTitle(string& userId, string& userName) {
+void PrintInvoiceTitle(string& userId, string &userName) {
 
 	fstream invoice;
-	UserData invoicedata;
+	invoice.open("LUNCH_INVOICE.txt", ios::out);	//write invoice for LUNCH_INVOICE.txt
 
-	invoice.open("LUNCH_INVOICE.txt", ios::out);//write for invoice
 	if (invoice.is_open()) {
 		invoice << "***********************************************************************************************\n"
 			<< "*************************     Naomi and John's School Lunch invoice      **********************\n\n"
 			<< "***********************************************************************************************\n\n\n"
 			//<< "\tDate : " << t << endl
-			<< "\tCustomer ID : " << invoicedata.userId << "\t"
-			<< "\tCustomer's Name : " << invoicedata.userName << endl
+			<< "\tCustomer ID : " << &userId << "\t" //secret user ID for customer
+			<< "\tCustomer's Name : " << userName << endl	
 			<< "___________________________________________________________________________________________________\n"
 			<< "| Item name\t\t\t" << "|" << " Unit Price\t" << "|" << " Quantity\t" << "|" << " Total Price\t|" << endl
 			<< "---------------------------------------------------------------------------------------------------\n";
@@ -29,8 +28,8 @@ void PrintInvoiceTitle(string& userId, string& userName) {
 }
 
 void PrintDiscount(double &totalAmount) {
+
 	fstream invoice;
-	
 	invoice.open("LUNCH_INVOICE.txt", ios::app);
 
 	if (invoice.is_open()) {

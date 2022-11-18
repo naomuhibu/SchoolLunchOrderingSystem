@@ -41,20 +41,18 @@ int main() {
 		file << userdata.userName << endl << userdata.userPassword;
 		file.close();
 
+		PrintInvoiceTitle(userdata.userId, userdata.userName);	//write invoice for LUNCH_INVOICE.txt
+
 		main();
-	}
-	else if (choice == 2) { //If user enters wrong credentials
+	} else if (choice == 2) { //If user enters wrong credentials
 		bool status = LoggingIn();
 		if (!status) {
 			cout << "Incorrect Information Entered!, Please Try Again!" << endl;
 			system("PAUSE");
 			return 0;
-		} else { //Login successful
+		}
+		else { //Login successful
 			cout << "Login Successful!\n";
-			
-			UserData invoicedata;
-
-			PrintInvoiceTitle(invoicedata.userId, invoicedata.userName); //write invoice title for lunchInvoice.txt
 
 			PrintOrderTitle();	//write title for ORDER_DATA.csv
 
@@ -143,13 +141,23 @@ int main() {
 
 			PrintDiscount(totalAmount);
 
+			fstream invoice;
+			invoice.open("LUNCH_INVOICE.txt", ios::in);//read file
+			if (invoice.is_open()) {
+				string line;
+				while (getline(invoice, line)) {
+					cout << line << endl;
+				}
+				invoice.close();
+			}
+
 			int paymentType = 0;	//payment content
 			char saveNo;
 
 			Creditcard credit;
 			UserData userInfo;
 
-			cout << "*****Payment Type*****" << endl;
+			cout << "\n\n********** Payment Type **********" << endl;
 			cout << "  1 : Credit card" << endl;
 			cout << "  2 : Bank Account" << endl;
 			cin >> paymentType;
@@ -165,12 +173,12 @@ int main() {
 				if (checkLuhn(credit.cardNumber) && n >= 14) {
 
 					cout << "Please enter the expiry date" << endl;
-					cout << "Month : ";
+					cout << "Month(XX) : ";
 					cin >> credit.monthOfExpire;
 					cout << "Year (20XX): ";
 					cin >> credit.yearOfExpire;
 
-					if (credit.yearOfExpire < 22) {
+					if (credit.yearOfExpire < 22 && credit.monthOfExpire <11) { //Date November/2022 now
 						invalidnumber();
 
 						exit(0);
