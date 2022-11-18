@@ -10,40 +10,27 @@ using namespace std;
 bool LoggingIn() {
 
 	string user, pass;
-	UserData loginData;
+	UserData userdata;
 
-	cout << "Enter Username: "; cin >> loginData.userName; //Asks user for username
-	cout << "Enter Your Password: "; cin >> loginData.userPassword; //Asks user for password
+	cout << "Enter Username: "; cin >> userdata.userName; //Asks user for username
+	cout << "Enter Your Password: "; cin >> userdata.userPassword; //Asks user for password
 
-	ifstream read(loginData.userName + ".csv");
+	ifstream read(userdata.userName + ".csv");
 	getline(read, user);
 	getline(read, pass);
 
-	if (user == loginData.userName && pass == loginData.userPassword) { //If user enters correct username and password, returns true condition
+	if (user == userdata.userName && pass == userdata.userPassword) { //If user enters correct username and password, returns true condition
 		return true;
 	}
 	else { //Or returns false if credentials are not correct
 		return false;
 	}
 
-	if (user == loginData.userName && pass == loginData.userPassword) {
+	if (user == userdata.userName && pass == userdata.userPassword) {
 		if (bool status = true) {
 
 		}
 	}
 }
 
-/*		if (bool status = true) 
-		{
-				fstream lunchFile;
-				lunchFile.open("ORDER_DATA.csv", ios::in);//read file
-				if (lunchFile.is_open()) {
-					string line;
-					while (getline(lunchFile, line)) {
-						cout << line << endl;
-					}
-					lunchFile.close();
-				}
-			system("PAUSE");
-		}
-*/
+

@@ -21,29 +21,30 @@ int main() {
 	//User to select choice for login or register
 	int choice;
 
+	UserData customerData;//UserData customerData; //set up structure member
+
 	cout << "Select a choice!\n1: Register\n2: Login\n Your choice: ";
 	cin >> choice;
 	//User to enter username and password	
 	if (choice == 1) {
 
-		UserData userdata;
-
 		cout << "Select a Username: ";
-		cin >> userdata.userName;
+		cin >> customerData.userName;
 		cout << "Select your Password: ";
-		cin >> userdata.userPassword;
+		cin >> customerData.userPassword;
 
-		userdata.userId = userdata.userName + userdata.userPassword;  // make userID
+		customerData.userId = customerData.userName + customerData.userPassword;  // make userID
+
+		PrintInvoiceTitle(customerData.userId, customerData.userName);	//write invoice for LUNCH_INVOICE.txt
 
 		//Creates file for user
 		ofstream file;
-		file.open(userdata.userName + ".csv");
-		file << userdata.userName << endl << userdata.userPassword;
+		file.open(customerData.userName + ".csv");
+		file << customerData.userName << endl << customerData.userPassword;
 		file.close();
-
-		PrintInvoiceTitle(userdata.userId, userdata.userName);	//write invoice for LUNCH_INVOICE.txt
-
+		
 		main();
+
 	} else if (choice == 2) { //If user enters wrong credentials
 		bool status = LoggingIn();
 		if (!status) {
@@ -55,6 +56,7 @@ int main() {
 			cout << "Login Successful!\n";
 
 			PrintOrderTitle();	//write title for ORDER_DATA.csv
+
 
 			//utc_clock::time_point t = clock_cast<utc_clock>(file_clock::now());// compile using: /std:c++latest
 			int lunchItemsCord;
@@ -155,7 +157,6 @@ int main() {
 			char saveNo;
 
 			Creditcard credit;
-			UserData userInfo;
 
 			cout << "\n\n********** Payment Type **********" << endl;
 			cout << "  1 : Credit card" << endl;
@@ -178,7 +179,7 @@ int main() {
 					cout << "Year (20XX): ";
 					cin >> credit.yearOfExpire;
 
-					if (credit.yearOfExpire < 22 && credit.monthOfExpire <11) { //Date November/2022 now
+					if (credit.yearOfExpire < 22 && credit.monthOfExpire < 11) { //Date November/2022 now
 						invalidnumber();
 
 						exit(0);
@@ -194,14 +195,8 @@ int main() {
 
 						if (saveNo == 'y') {
 							//save cardnumbers into customer.csv 
-							ofstream ofs;
-							ofs.open("CREDIT_NUM_DATA.csv", ios_base::app);
-							ofs << userInfo.userId << userInfo.userName << "," << credit.cardNumber << "," << credit.monthOfExpire << "," << credit.yearOfExpire << endl;
 
-							if (!ofs) {
-								cerr << "Error" << endl;  // Error message if couldn"t open ofs
-								ofs.close();
-							}
+							PrintInvoiceTitle(customerData.userId,credit.cardNumber,credit.monthOfExpire,credit.yearOfExpire,credit.cvvNumber);
 						}
 					}
 				}
@@ -212,7 +207,9 @@ int main() {
 			}
 			else if (paymentType == 2) {
 				cout << "Please enter your Email address: ";
-				cin >> userInfo.emailAddress;
+				cin >> customerData.emailAddress;
+
+
 				cout << "Thank you for ordering our lunch service. we are going to send invoice soon." << endl;
 			}
 
