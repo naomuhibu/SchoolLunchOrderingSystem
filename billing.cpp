@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void PrintInvoiceTitle(string& userId, string& userName) {
+void printInvoiceTitle(string& userId, string& userName) {
 
 	fstream invoice;
 	invoice.open("LUNCH_INVOICE.txt", ios::out);	//write invoice for LUNCH_INVOICE.txt
@@ -18,7 +18,7 @@ void PrintInvoiceTitle(string& userId, string& userName) {
 			<< "*************************     Naomi and John's School Lunch invoice      **********************\n\n"
 			<< "***********************************************************************************************\n\n\n"
 			//<< "\tDate : " << t << endl
-			<< "\tCustomer ID : " << &userId << "\t" //secret user ID for customer 
+			<< "\tCustomer ID : " << &userId << "\t" //do not show user ID for customer 
 			<< "\tCustomer's Name : " << userName << endl	
 			<< "___________________________________________________________________________________________________\n"
 			<< "| Item name\t\t\t" << "|" << " Unit Price\t" << "|" << " Quantity\t" << "|" << " Total Price\t|" << endl
@@ -28,14 +28,14 @@ void PrintInvoiceTitle(string& userId, string& userName) {
 
 }
 
-void PrintDiscount(double &totalAmount) {
+void printDiscount(double& totalAmount) {
 
 	fstream invoice;
 	invoice.open("LUNCH_INVOICE.txt", ios::app);
 
 	if (invoice.is_open()) {
 
-		double discount=0.0, discountTotal, taxTotal;
+		double discount = 0.0, discountTotal, taxTotal;
 
 		invoice << "***********************************************************************************\n"
 			<< "Total : $" << totalAmount << endl;
@@ -57,13 +57,15 @@ void PrintDiscount(double &totalAmount) {
 
 	}
 }
-void PrintInvoiceTitle(string& userId, string& cardNumber, int& monthOfExpire,int& yearOfExpire, int& cvvNumber){
-	ofstream ofs;
-	ofs.open("CREDIT_NUM_DATA.csv", ios_base::app);
-	ofs << &userId << "," << cardNumber << "," << monthOfExpire << "," << yearOfExpire << endl;
 
-	if (!ofs) {
-		cerr << "Error" << endl;  // Error message if couldn"t open ofs
-		ofs.close();
+void printInvoice() {
+	fstream invoice;
+	invoice.open("LUNCH_INVOICE.txt", ios::in);//read file
+	if (invoice.is_open()) {
+		string line;
+		while (getline(invoice, line)) {
+			cout << line << endl;
+		}
+		invoice.close();
 	}
 }

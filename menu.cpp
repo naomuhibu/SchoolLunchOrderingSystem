@@ -21,13 +21,13 @@ void menu() {
 
 }
 
-void PrintOrderTitle() {
+void printOrderTitle() {
 
 	fstream lunchFile;
 
 	lunchFile.open("ORDER_DATA.csv", ios::out);//write title for ORDER_DATA.csv
 	if (lunchFile.is_open()) {
-		lunchFile << "Item Name" << " ,"
+		lunchFile <<"User ID"  << "," << "Item Name" << " ,"
 			<< "Unit Price" << " ,"
 			<< "Quantity" << " ,"
 			<< "Total Price" << endl;

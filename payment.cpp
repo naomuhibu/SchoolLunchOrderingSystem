@@ -32,3 +32,30 @@ void invalidnumber() {
 	cout << "This is invalid number, please try again" << endl;
 }
 
+void printCreditTitle() { //customer credit data title
+
+	fstream creditFile;
+
+	creditFile.open("CREDIT_NUM_DATA.csv", ios::out);
+
+	if (creditFile.is_open()) {
+		creditFile << "User ID" << "," << "Card Number" << "," << "Expire Month" << ","
+			<< "Expire Year" << endl;
+
+		creditFile.close();
+
+	}
+}
+void printCredit(string& userId, string& cardNumber, int& monthOfExpire, int& yearOfExpire) {	//customer credit data
+	
+	fstream creditFile;
+
+	creditFile.open("CREDIT_NUM_DATA.csv", ios_base::app);
+	creditFile << &userId << "," << cardNumber << "," << monthOfExpire << "," << yearOfExpire << endl;
+
+	if (!creditFile) {
+		cerr << "Error" << endl;  // Error message if couldn"t open ofs
+		creditFile.close();
+	}
+}
+

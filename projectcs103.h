@@ -12,6 +12,7 @@ struct UserData {
 
 };
 
+void printCustomerDataTitle(); //  Write title for CUSTOMER_DATA.csv
 
 bool LoggingIn();
 
@@ -43,14 +44,16 @@ static const char* enum_str[] = {
 
 const vector <double> itemPrice = { 0,10.5,12,14.3,16,8.5,4,5.3,50,200 };
 
+void printOrderTitle();
+
 void menu();
 
 struct Creditcard {
 
 	string cardNumber;
-	int monthOfExpire;
-	int yearOfExpire;
-	int cvvNumber;
+	int monthOfExpire = 0;
+	int yearOfExpire = 0;
+	int cvvNumber = 0;
 
 };
 
@@ -58,11 +61,12 @@ bool checkLuhn(const string& cardNo);
 
 void invalidnumber();
 
-void PrintInvoiceTitle(string& userId, string& userName);
+void printInvoiceTitle(string& userId, string& userName);
 
-void PrintOrderTitle();
+void printDiscount(double& totalAmount);
 
-void PrintDiscount(double& totalAmount);
+void printCreditTitle(); //customer credit data title
 
-void PrintInvoiceTitle(string& userId, string& cardNumber, int& monthOfExpire, int& yearOfExpire, int& cvvNumber);
+void printCredit(string& userId, string& cardNumber, int& monthOfExpire, int& yearOfExpire);	//customer credit data
 
+void printInvoice();

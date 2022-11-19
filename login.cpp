@@ -33,4 +33,17 @@ bool LoggingIn() {
 	}
 }
 
+void printCustomerDataTitle(){//  Write title for CUSTOMER_DATA.csv {
 
+	fstream customerFile;
+
+	customerFile.open("CUSTOMER_DATA.csv", ios::out);//customer data
+
+	if (customerFile.is_open()) {
+		customerFile << "User ID" << "," << "User Name" << "," << "User Password" << ","
+			<< "User email address" << "," << endl;
+
+		customerFile.close();
+
+	}
+}

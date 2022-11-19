@@ -35,7 +35,19 @@ int main() {
 
 		customerData.userId = customerData.userName + customerData.userPassword;  // make userID
 
-		PrintInvoiceTitle(customerData.userId, customerData.userName);	//write invoice for LUNCH_INVOICE.txt
+		printCustomerDataTitle(); //  Write title for CUSTOMER_DATA.csv
+
+		fstream customerFile;	//save customer data
+		customerFile.open("CUSTOMER_DATA.csv", ios::app);		
+		if (customerFile.is_open()) {
+			customerFile << customerData.userId << ","
+				<< customerData.userName << ","
+				<< customerData.userPassword;
+
+			customerFile.close();
+		}
+
+		printInvoiceTitle(customerData.userId, customerData.userName);	//write invoice title for LUNCH_INVOICE.txt
 
 		//Creates file for user
 		ofstream file;
@@ -43,6 +55,7 @@ int main() {
 		file << customerData.userName << endl << customerData.userPassword;
 		file.close();
 		
+
 		main();
 
 	} else if (choice == 2) { //If user enters wrong credentials
@@ -55,8 +68,7 @@ int main() {
 		else { //Login successful
 			cout << "Login Successful!\n";
 
-			PrintOrderTitle();	//write title for ORDER_DATA.csv
-
+			printOrderTitle();	//write title for ORDER_DATA.csv
 
 			//utc_clock::time_point t = clock_cast<utc_clock>(file_clock::now());// compile using: /std:c++latest
 			int lunchItemsCord;
@@ -118,10 +130,9 @@ int main() {
 				invoice.open("LUNCH_INVOICE.txt", ios::app);	//order items into LUNCH_INVOICE.txt for Invoice
 				if (invoice.is_open()) {
 					invoice << left << setw(32) << enum_str[lunchItemsCord]
-						<< right << setw(12) << "$" << itemPrice[lunchItemsCord]
-
-						<< setw(15) << quantity
-						<< right << setw(13) << "$" << totalItemPrice << endl;
+							<< right << setw(12) << "$" << itemPrice[lunchItemsCord]
+							<< setw(15) << quantity
+							<< right << setw(13) << "$" << totalItemPrice << endl;
 				}
 				invoice.close();
 
@@ -129,10 +140,11 @@ int main() {
 
 				lunchFile.open("ORDER_DATA.csv", ios::app);		//order items into ORDER_DATA.csv
 				if (lunchFile.is_open()) {
-					lunchFile << enum_str[lunchItemsCord] << ","
-						<< itemPrice[lunchItemsCord] << ","
-						<< quantity << ","
-						<< totalItemPrice << endl;
+					lunchFile	<<customerData.userId <<"," 
+								<< enum_str[lunchItemsCord] << ","
+								<< itemPrice[lunchItemsCord] << ","
+								<< quantity << ","
+								<< totalItemPrice << endl;
 
 					lunchFile.close();
 				}
@@ -141,17 +153,9 @@ int main() {
 				cin >> answer;
 			} while (answer == 'y');
 
-			PrintDiscount(totalAmount);
-
-			fstream invoice;
-			invoice.open("LUNCH_INVOICE.txt", ios::in);//read file
-			if (invoice.is_open()) {
-				string line;
-				while (getline(invoice, line)) {
-					cout << line << endl;
-				}
-				invoice.close();
-			}
+			printDiscount(totalAmount); // disscount caluculation
+			
+			printInvoice(); // make invoice with txtfile
 
 			int paymentType = 0;	//payment content
 			char saveNo;
@@ -195,8 +199,9 @@ int main() {
 
 						if (saveNo == 'y') {
 							//save cardnumbers into customer.csv 
-
-							PrintInvoiceTitle(customerData.userId,credit.cardNumber,credit.monthOfExpire,credit.yearOfExpire,credit.cvvNumber);
+							
+							printCreditTitle(); //23customer credit data title
+							printCredit(customerData.userId, credit.cardNumber, credit.monthOfExpire, credit.yearOfExpire);	//customer credit data
 						}
 					}
 				}
@@ -209,13 +214,21 @@ int main() {
 				cout << "Please enter your Email address: ";
 				cin >> customerData.emailAddress;
 
+				fstream customerFile;	//save email address to customer data
+				customerFile.open("CUSTOMER_DATA.csv", ios::app);
+
+
+				if (customerFile.is_open()) {
+					customerFile << "," << customerData.emailAddress << endl;
+				}
+					customerFile.close();
 
 				cout << "Thank you for ordering our lunch service. we are going to send invoice soon." << endl;
 			}
 
 			if (answer == 'n') {				//log out 
 				cout << "You have logged out, Program will close now";
-				//exit(0); 
+			//	exit(0); 
 			}
 		}
 	}
