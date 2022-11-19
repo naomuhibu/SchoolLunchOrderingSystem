@@ -5,6 +5,7 @@
 #include <cmath>
 #include<vector>
 #include<iomanip>
+#include<chrono>
 #include"projectcs103.h"
 
 
@@ -20,6 +21,7 @@ int main() {
 	//Login
 	//User to select choice for login or register
 	int choice;
+	string userID;
 
 	UserData customerData;//UserData customerData; //set up structure member
 
@@ -33,7 +35,9 @@ int main() {
 		cout << "Select your Password: ";
 		cin >> customerData.userPassword;
 
-		customerData.userId = customerData.userName + customerData.userPassword;  // make userID
+
+		userID = customerData.userName + customerData.userPassword;  // make userID
+		customerData.userId = userID;
 
 		printCustomerDataTitle(); //  Write title for CUSTOMER_DATA.csv
 
@@ -140,11 +144,11 @@ int main() {
 
 				lunchFile.open("ORDER_DATA.csv", ios::app);		//order items into ORDER_DATA.csv
 				if (lunchFile.is_open()) {
-					lunchFile	<<customerData.userId <<"," 
-								<< enum_str[lunchItemsCord] << ","
-								<< itemPrice[lunchItemsCord] << ","
-								<< quantity << ","
-								<< totalItemPrice << endl;
+					lunchFile<< userID <<"," 
+							 << enum_str[lunchItemsCord] << ","
+							 << itemPrice[lunchItemsCord] << ","
+							 << quantity << ","
+							 << totalItemPrice << endl;
 
 					lunchFile.close();
 				}
@@ -201,7 +205,7 @@ int main() {
 							//save cardnumbers into customer.csv 
 							
 							printCreditTitle(); //23customer credit data title
-							printCredit(customerData.userId, credit.cardNumber, credit.monthOfExpire, credit.yearOfExpire);	//customer credit data
+							printCredit(userID, credit.cardNumber, credit.monthOfExpire, credit.yearOfExpire);	//customer credit data
 						}
 					}
 				}

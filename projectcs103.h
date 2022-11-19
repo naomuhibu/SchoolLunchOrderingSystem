@@ -61,12 +61,12 @@ bool checkLuhn(const string& cardNo);
 
 void invalidnumber();
 
-void printInvoiceTitle(string& userId, string& userName);
+void printInvoiceTitle(string& userID, string& userName);
 
 void printDiscount(double& totalAmount);
 
 void printCreditTitle(); //customer credit data title
 
-void printCredit(string& userId, string& cardNumber, int& monthOfExpire, int& yearOfExpire);	//customer credit data
+void printCredit(string& userID, string& cardNumber, int& monthOfExpire, int& yearOfExpire);	//customer credit data
 
 void printInvoice();

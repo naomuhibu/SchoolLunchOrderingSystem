@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void printInvoiceTitle(string& userId, string& userName) {
+void printInvoiceTitle(string& userID, string& userName) {
 
 	fstream invoice;
 	invoice.open("LUNCH_INVOICE.txt", ios::out);	//write invoice for LUNCH_INVOICE.txt
@@ -18,20 +18,19 @@ void printInvoiceTitle(string& userId, string& userName) {
 			<< "*************************     Naomi and John's School Lunch invoice      **********************\n\n"
 			<< "***********************************************************************************************\n\n\n"
 			//<< "\tDate : " << t << endl
-			<< "\tCustomer ID : " << &userId << "\t" //do not show user ID for customer 
+			<< "\tCustomer ID : " << &userID << "\t" //do not show user ID for customer 
 			<< "\tCustomer's Name : " << userName << endl	
 			<< "___________________________________________________________________________________________________\n"
 			<< "| Item name\t\t\t" << "|" << " Unit Price\t" << "|" << " Quantity\t" << "|" << " Total Price\t|" << endl
 			<< "---------------------------------------------------------------------------------------------------\n";
 	}
 	invoice.close();
-
 }
 
 void printDiscount(double& totalAmount) {
 
 	fstream invoice;
-	invoice.open("LUNCH_INVOICE.txt", ios::app);
+	invoice.open("LUNCH_INVOICE.txt", ios::app);  //write discount total
 
 	if (invoice.is_open()) {
 
@@ -52,7 +51,7 @@ void printDiscount(double& totalAmount) {
 
 		invoice << "Total Amount : $" << fixed << setprecision(2) << discountTotal << endl;
 		taxTotal = discountTotal * 1.15;
-		invoice << "Total Amount with GST : $" << fixed << setprecision(2) << taxTotal;
+		invoice << "Total Amount with GST : $" << fixed << setprecision(2) << taxTotal <<endl;
 		invoice.close();
 
 	}

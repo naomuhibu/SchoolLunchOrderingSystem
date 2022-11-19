@@ -46,12 +46,12 @@ void printCreditTitle() { //customer credit data title
 
 	}
 }
-void printCredit(string& userId, string& cardNumber, int& monthOfExpire, int& yearOfExpire) {	//customer credit data
+void printCredit(string& userID, string& cardNumber, int& monthOfExpire, int& yearOfExpire) {	//customer credit data
 	
 	fstream creditFile;
 
 	creditFile.open("CREDIT_NUM_DATA.csv", ios_base::app);
-	creditFile << &userId << "," << cardNumber << "," << monthOfExpire << "," << yearOfExpire << endl;
+	creditFile << userID << "," << cardNumber << "," << monthOfExpire << "," << yearOfExpire << endl;
 
 	if (!creditFile) {
 		cerr << "Error" << endl;  // Error message if couldn"t open ofs
